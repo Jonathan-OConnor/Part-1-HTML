@@ -1,0 +1,151 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Font Awesome, Bootstrap, and Google Font links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+    <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding-top: 20px;">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-center col-sm-6">
+                <a class="navbar-brand" href="#">
+                    <h1>VA Sample Website</h1>
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class=col-sm-6>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                <a class="nav-link" href="#">About</a>
+                                <a class="nav-link" href="#">Work</a>
+                                <a class="nav-link" href="./contact.html">Contact</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class=col-sm-6>
+                        <div class="socials">
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </nav>
+    <div class="container" style="padding-top: 30px;">
+        <div class="input-group mb-3">
+            <span class="input-group-text">Full Name</span>
+            <input id="name" type="text" class="form-control">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Email</span>
+            <input id="email" type="text" class="form-control">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Company</span>
+            <input id="company" type="text" class="form-control">
+        </div>
+        <form>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Phone</span>
+                <input id="phone" class="phone">
+            </div>
+        </form>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="category">Category</label>
+            <select class="form-select" id="category">
+                <option selected value="0">Select a Category...</option>
+                <option value="Kentico services and consulting">Kentico services and consulting</option>
+                <option value="iMIS services and consulting">iMIS services and consulting</option>
+                <option value="SAML integration and iMIS or Kentico">SAML integration and iMIS or Kentico</option>
+                <option value="Other .NET technology services">Other .NET technology services</option>
+            </select>
+
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Message</span>
+            <textarea style="width:100%; resize: none" rows="5" id="message"></textarea>
+        </div>
+        <button class="btn-primary" onclick="verify()">Submit</button>
+        <p id="success" style="color: green;"></p>
+        <p id="final"></p>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./js/jquery.mask.min.js"></script>
+    <script type="text/javascript">jQuery(function ($) { $("#phone").mask("(999) 999-9999"); });</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+    <script>
+        function validateEmail(email) {
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        function validatePhone(phoneNumber) {
+            if (phoneNumber.length == 14) {
+                return true
+            }
+            return false
+
+        }
+        function verify() {
+            let invalid = 0
+            if (document.getElementById('name').value === '') {
+                alert("Please fill in your name")
+                invalid = 1
+            }
+            if (!validateEmail(document.getElementById("email").value)) {
+                alert("Enter valid email")
+                invalid = 1
+            }
+            if (!validatePhone(document.getElementById("phone").value)) {
+                alert("Enter a 10 digit phone number")
+                invalid = 1
+            }
+            if (document.getElementById('category').value === "0") {
+                alert("Choose a category")
+                invalid = 1
+            }
+            if (invalid === 0) {
+                document.getElementById("success").innerText = "Success!"
+                document.getElementById("final").innerText = `Full Name: ${document.getElementById('name').value} \n Email: ${document.getElementById("email").value} \n Company: ${document.getElementById('company').value} \n Phone Number: ${document.getElementById("phone").value} \n Category: ${document.getElementById('category').value} \n Message: ${document.getElementById('message').value}`
+            }
+            return
+        }
+    </script>
+</body>
+
+</html>
